@@ -4,4 +4,9 @@ from . import models
 # Register your models here.
 
 admin.site.register(models.Banners)
-admin.site.register(models.Service)
+
+class ServiceAdmin(admin.ModelAdmin):
+    list_display=('title','image_tag')
+admin.site.register(models.Service, ServiceAdmin)
+
+admin.site.register(models.Page)

@@ -17,3 +17,18 @@ class Banners(models.Model):
 class Service(models.Model):
     title = models.CharField(max_length=50)
     details = models.TextField()
+    image = models.ImageField(upload_to='services/', null=True)
+
+    def __str__(self):
+        return self.title
+    
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
+    
+
+class Page(models.Model):
+    title = models.CharField(max_length=50)
+    details = models.TextField()
+
+    def __str__(self):
+        return self.title
