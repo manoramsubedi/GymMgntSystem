@@ -32,3 +32,20 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
+    
+class faq_list(models.Model):
+    question=models.CharField(max_length=200)
+    answer=models.TextField()
+
+    def __str__(self):
+        return self.question
+    
+
+class Enquiry(models.Model):
+    full_name = models.CharField(max_length=150)
+    email = models.EmailField()
+    detail = models.TextField()
+    time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.full_name

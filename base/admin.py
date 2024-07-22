@@ -10,3 +10,7 @@ class ServiceAdmin(admin.ModelAdmin):
 admin.site.register(models.Service, ServiceAdmin)
 
 admin.site.register(models.Page)
+
+admin.site.register(models.faq_list)
+
+admin.site.register(models.Enquiry)
