@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+    <section class="container my-4">
+        <h1 class="text-center mb-4 section-heading border-bottom pb-2">{{gallery.title}} Images</h1>
+        <div class="row">
+        {% for gimg in gallery_img %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                <img src="{{gimg.image.url}}" class="card-img-top" alt="{{gimg.alt_text}}">
+                
+                </div>
+        {% endfor %}
+            </div>
+    </section>
+{% endblock %}

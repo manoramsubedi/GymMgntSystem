@@ -49,3 +49,26 @@ class Enquiry(models.Model):
 
     def __str__(self):
         return self.full_name
+    
+class Gallery(models.Model):
+    title = models.CharField(max_length=100)
+    detail = models.TextField()
+    image = models.ImageField(upload_to='gallery/', null=True)
+
+    def __str__(self):
+        return self.title
+    
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
+    
+class GalleryImage(models.Model):
+    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE, null=True)
+    alt_text = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='gallery_image/', null=True)
+
+    def __str__(self):
+        return self.alt_text
+    
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
+
