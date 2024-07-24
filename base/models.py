@@ -71,4 +71,20 @@ class GalleryImage(models.Model):
     
     def image_tag(self):
         return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
+    
+
+class Subscription(models.Model):
+    title = models.CharField(max_length=100)
+    price = models.IntegerField()
+    highlight_status = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+    
+class SubscriptionFeature(models.Model):
+    subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.title} - {self.subscription.title}"
 

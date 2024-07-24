@@ -22,3 +22,12 @@ admin.site.register(models.Gallery, GalleryAdmin)
 class GalleryImageAdmin(admin.ModelAdmin):
     list_display=('alt_text','image_tag')
 admin.site.register(models.GalleryImage, GalleryImageAdmin)
+
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_editable = ('highlight_status',)
+    list_display=('title','price', 'highlight_status')
+admin.site.register(models.Subscription, SubscriptionAdmin)
+
+class SubscriptionFeatureAdmin(admin.ModelAdmin):
+    list_display=('title', 'subscription')
+admin.site.register(models.SubscriptionFeature, SubscriptionFeatureAdmin)

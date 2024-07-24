@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from .models import Banners, Service, Page, faq_list, Enquiry, Gallery, GalleryImage
+from .models import Banners, Service, Page, faq_list, Enquiry, Gallery, GalleryImage, Subscription, SubscriptionFeature
 from .forms import EnquiryForm
+
+from django.db.models import Count
 
 # Create your views here.
 
@@ -48,6 +50,14 @@ def gallery_detail(request, id):
     gallery_img = GalleryImage.objects.filter(gallery=gallery).order_by('-id')
     context = {'gallery_img':gallery_img, 'gallery':gallery}
     return render(request, 'base/detailgallery.html', context)
+
+def subscription(request):
+    #subscription = Subscription.objects.annotate(total_members=Count('subscription__id')).all().order_by('price')
+    subscription = Subscription.objects.all()
+    #subfeature = SubscriptionFeature.objects.all()
+    distinct_features = SubscriptionFeature.objects.distinct('title')
+    context = {'subscription':subscription, 'distinct_features': distinct_features}
+    return render(request, 'base/pricing.html', context)
 
 
 
