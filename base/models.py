@@ -82,9 +82,9 @@ class Subscription(models.Model):
         return self.title
     
 class SubscriptionFeature(models.Model):
-    subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
+    subscription = models.ManyToManyField(Subscription)
     title = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.title} - {self.subscription.title}"
+        return f"{self.title}"
 

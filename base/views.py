@@ -9,7 +9,8 @@ from django.db.models import Count
 def home(request):
     banners = Banners.objects.all()
     services = Service.objects.all()[:3]
-    context = {'banners':banners, 'services':services}
+    gimages = GalleryImage.objects.all().order_by('-id')[:9]
+    context = {'banners':banners, 'services':services, 'gimages':gimages}
     return render(request, 'base/home.html', context)
 
 def page_detail(request, id):
@@ -55,7 +56,7 @@ def subscription(request):
     #subscription = Subscription.objects.annotate(total_members=Count('subscription__id')).all().order_by('price')
     subscription = Subscription.objects.all()
     #subfeature = SubscriptionFeature.objects.all()
-    distinct_features = SubscriptionFeature.objects.distinct('title')
+    distinct_features = SubscriptionFeature.objects.all()
     context = {'subscription':subscription, 'distinct_features': distinct_features}
     return render(request, 'base/pricing.html', context)
 

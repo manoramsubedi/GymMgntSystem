@@ -29,5 +29,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
 admin.site.register(models.Subscription, SubscriptionAdmin)
 
 class SubscriptionFeatureAdmin(admin.ModelAdmin):
-    list_display=('title', 'subscription')
+
+    def subname(self, obj):
+        return " | ".join([sub.title for sub in obj.subscription.all()])
+    list_display=('title', 'subname')
 admin.site.register(models.SubscriptionFeature, SubscriptionFeatureAdmin)

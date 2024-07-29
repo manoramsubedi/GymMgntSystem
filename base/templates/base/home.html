@@ -31,7 +31,7 @@
                   <img src="{{service.image.url}}" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h3 class="card-title">{{service.title}}</h3>
-                    <p class="card-text">{{service.details|truncatewords:9}}</p> #truncatechars:9
+                    <p class="card-text">{{service.details|truncatewords:9}}</p> <!--truncatechars:9-->
                     <a href="service.php" class="btn btn-primary">Read More</a>
                   </div>
                 </div>
@@ -54,18 +54,9 @@
                 <div class="col-md-6 offset-1">
                         <h1 class="mb-4 section-heading">Gallery <a href="#" class="float-end btn btn-info text-white mt-2">View All</a></h1>
                         <div class="gallery">
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/cardio-1.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/cardio-1.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/cardio-1.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/dance-3.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
+                          {% for gimgs in gimages %}
+                            <a href="{{gimgs.image.url}}" data-lightbox="gallery"> <img src="{{gimgs.image.url}}" width="155" class="img-thumbnail" alt="{{gimgs.alt_text}}"></a>
+                          {% endfor %}
                         </div>
                 </div>
             </div>
@@ -73,4 +64,7 @@
     </section>
     <!-- End Testimonials -->
 
+<script type="text/javascript" src="{% static 'lightbox2-2.11.3/dist/js/lightbox.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'lightbox2-2.11.3/dist/css/lightbox.min.css' %}" />
 {% endblock %}
+

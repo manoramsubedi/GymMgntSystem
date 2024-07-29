@@ -55,7 +55,7 @@
             <th scope="row" class="text-start">{{feature.title}}</th>
             {% for plan in subscription %}
                 <td>
-                  {% if plan in feature.subscriptionfeature.all %}
+                  {% if plan in feature.subscription.all %}
                     <i class="bi bi-check"></i>
                     {% else %}
                     <i class="bi bi-x text-danger"></i>
