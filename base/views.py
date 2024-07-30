@@ -3,6 +3,7 @@ from .models import Banners, Service, Page, faq_list, Enquiry, Gallery, GalleryI
 from .forms import EnquiryForm
 
 from django.db.models import Count
+from django.contrib.auth import authenticate
 
 # Create your views here.
 
@@ -59,6 +60,7 @@ def subscription(request):
     distinct_features = SubscriptionFeature.objects.all()
     context = {'subscription':subscription, 'distinct_features': distinct_features}
     return render(request, 'base/pricing.html', context)
+
 
 
 

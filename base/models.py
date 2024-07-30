@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 
 # Create your models here
 
+
 class Banners(models.Model):
     image = models.ImageField(upload_to='banners/')
     alt_text = models.CharField(max_length=50)
