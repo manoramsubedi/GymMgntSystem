@@ -11,6 +11,7 @@ urlpatterns = [
     path('gallery/', views.gallery, name='gallery'),
     path('gallerydetail/<int:id>', views.gallery_detail, name='gallerydetail'),
     path('subscriptions/', views.subscription, name="subscription"),
+    path('checkout/<int:sub_id>', views.checkout, name='checkout'),
 
 
 

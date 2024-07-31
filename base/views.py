@@ -61,5 +61,12 @@ def subscription(request):
     return render(request, 'base/pricing.html', context)
 
 
+def checkout(request, sub_id):
+    SubscriptionDetail = Subscription.objects.get(pk=sub_id)
+    sub_feature = SubscriptionFeature.objects.all()
+    context = {'subscriptiondetail': SubscriptionDetail, 'sub_feature': sub_feature}
+    return render(request, 'base/checkout.html', context)
+
+
 
 

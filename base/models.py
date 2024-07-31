@@ -79,6 +79,7 @@ class Subscription(models.Model):
     price = models.IntegerField()
     highlight_status = models.BooleanField(default=False)
     max_num = models.IntegerField(null=True)
+    availiable = models.IntegerField(null=True)
 
     def __str__(self):
         return self.title
