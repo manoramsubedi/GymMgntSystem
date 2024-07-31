@@ -22,12 +22,12 @@
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">Rs.{{plan.price}}<small class="text-muted fw-light">/mo</small></h1>
+                    <h4><p class="text-success">{{plan.max_num}} Seats Availiable.</p></h4>
                     <ul class="list-unstyled mt-3 mb-4">
                         {% for feature in plan.subscriptionfeature_set.all %}
                             <li>{{feature.title}}</li>    
                         {% endfor %}      
                     </ul>
-       
                     <a href="checkout.php" class="w-100 btn btn-lg btn-outline-primary">Get started</a>
                 </div>
                 

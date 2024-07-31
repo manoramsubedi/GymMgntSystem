@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block content %}
+{% if user.is_authenticated %}
+        <p>Welcome @{{ user.username }}</p>
+{% endif %}
     <!-- banner Start -->
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner active">

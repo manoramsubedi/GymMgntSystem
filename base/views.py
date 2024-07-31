@@ -5,6 +5,7 @@ from .forms import EnquiryForm
 from django.db.models import Count
 from django.contrib.auth import authenticate
 
+
 # Create your views here.
 
 def home(request):
@@ -54,9 +55,7 @@ def gallery_detail(request, id):
     return render(request, 'base/detailgallery.html', context)
 
 def subscription(request):
-    #subscription = Subscription.objects.annotate(total_members=Count('subscription__id')).all().order_by('price')
-    subscription = Subscription.objects.all()
-    #subfeature = SubscriptionFeature.objects.all()
+    subscription = Subscription.objects.all().order_by('price')
     distinct_features = SubscriptionFeature.objects.all()
     context = {'subscription':subscription, 'distinct_features': distinct_features}
     return render(request, 'base/pricing.html', context)

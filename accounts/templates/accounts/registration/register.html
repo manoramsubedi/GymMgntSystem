@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="container my-4">
+    <h1 class="text-center mb-4 section-heading border-bottom pb-2">Login</h1>
+    <div class="row" method= "POST">
+        <div class="col-md-6 offset-3">
+            <form method = "POST" action="">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                    {{form.as_table}}
+                    <td colspan="2">
+                        <input type="submit" class="btn btn-primary" value="Register"/>
+                    </td>
+                    
+                </table>
+                <p>Already Registerd? <a href="{% url 'login' %}">Login</a></p>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
