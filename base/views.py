@@ -1,9 +1,13 @@
-from django.shortcuts import render
-from .models import Banners, Service, Page, faq_list, Enquiry, Gallery, GalleryImage, Subscription, SubscriptionFeature
+from django.shortcuts import render, redirect
+from .models import *
 from .forms import EnquiryForm
 
 from django.db.models import Count
 from django.contrib.auth import authenticate
+
+import stripe
+
+
 
 
 # Create your views here.
@@ -64,9 +68,34 @@ def subscription(request):
 def checkout(request, sub_id):
     SubscriptionDetail = Subscription.objects.get(pk=sub_id)
     sub_feature = SubscriptionFeature.objects.all()
-    context = {'subscriptiondetail': SubscriptionDetail, 'sub_feature': sub_feature}
+    discounts = discount.objects.all()
+    context = {'subscriptiondetail': SubscriptionDetail, 'sub_feature': sub_feature, 'discounts':discounts}
     return render(request, 'base/checkout.html', context)
 
 
+stripe.api_key = 'sk_test_51Pk1arGyHjcugVxzLz0xVbHBNHyM9yNcw144jJ8uUGOw4oqoMj5X0uXQfQbQJRuszF5UniW9QEVnHgP1l8l6jvJR00xbIfDtuP'
+def checkout_session(request, sub_id ):
+    plan = Subscription.objects.get(pk=sub_id)
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'npr',
+                'product_data': {
+                    'name': plan.title,
+                },
+                'unit_amount': plan.price*100,
+            },
+            'quantity':1,
+        }],
+        mode='payment',
+        success_url = 'http://127.0.0.1:8000/payment_success',
+        cancel_url='http://127.0.0.1:8000/payment_cancel',
+    )
+    return redirect(session.url, code=303)
 
+def payment_success(request):
+    return render(request, 'base/success.html')
 
+def payment_cancel(request):
+    return render(request, 'base/cancel.html')

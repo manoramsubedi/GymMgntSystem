@@ -13,6 +13,12 @@ urlpatterns = [
     path('subscriptions/', views.subscription, name="subscription"),
     path('checkout/<int:sub_id>', views.checkout, name='checkout'),
 
+    path('checkout_session/<int:sub_id>', views.checkout_session, name='checkout_session'),
+    path('payment_success/', views.payment_success, name='payment_success'),
+    path('payment_cancel/', views.payment_cancel, name='payment_cancel'),
+
+
+
 
 
 ]

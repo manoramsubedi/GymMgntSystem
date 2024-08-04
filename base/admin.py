@@ -34,3 +34,15 @@ class SubscriptionFeatureAdmin(admin.ModelAdmin):
         return " | ".join([sub.title for sub in obj.subscription.all()])
     list_display=('title', 'subname')
 admin.site.register(models.SubscriptionFeature, SubscriptionFeatureAdmin)
+
+class discountAdmin(admin.ModelAdmin):
+    list_display=('subscription','total_months','total_discount')
+admin.site.register(models.discount, discountAdmin)
+
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display=('user','image_tag', 'mobile')
+admin.site.register(models.Subscriber, SubscriberAdmin)
+
+class SubscribedUsersAdmin(admin.ModelAdmin):
+    list_display=('user','plan', 'price')
+admin.site.register(models.SubscribedUsers, SubscribedUsersAdmin)

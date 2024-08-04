@@ -45,26 +45,14 @@
                     </td>
                     <td>
                         <table class="table table-bordered">
+                            {% for discount in discounts %}
+                           
                             <tr>
-                                <td><input data-planprice="{{subscriptiondetail.price}}" data-discount="0" type="radio" id="validity1" name="validity" class="select-validity" value="1" /></td>
-                                <th><label for="validity1">1 Month</label></th>
-                                <td></td>
+                                <td><input data-planprice="{{subscriptiondetail.price}}" data-discount="{{discount.total_discount}}" type="radio" id="validity{{discount.id}}" name="validity" class="select-validity" value="{{discount.total_months}}" /></td>
+                                <th><label for="validity{{discount.id}}">{{discount.total_months}} Month</label></th>
+                                <td>{{discount.total_discount}}%</td>
                             </tr>
-                            <tr>
-                                <td><input data-planprice="{{subscriptiondetail.price}}" data-discount="10" type="radio" id="validity2" name="validity" class="select-validity" value="3" /></td>
-                                <th><label for="validity2">3 Month</label></th>
-                                <td>10%</td>
-                            </tr>
-                            <tr>
-                                <td><input data-planprice="{{subscriptiondetail.price}}" data-discount="20" type="radio" id="validity3" value="6" name="validity" class="select-validity" /></td>
-                                <th><label for="validity3">6 Month</label></th>
-                                <td>20%</td>
-                            </tr>
-                            <tr>
-                                <td><input data-planprice="{{subscriptiondetail.price}}" data-discount="30" type="radio" id="validity4" value="12" name="validity" class="select-validity" /></td>
-                                <th><label for="validity4">12 Month</label></th>
-                                <td>30%</td>
-                            </tr>
+                            {% endfor %}
                         </table>
                     </td>
                 </tr>
@@ -73,11 +61,14 @@
                 <tr>
                     <td></td>
                     <th>Total Amount</th>
-                    <td><b>$Rs.<span class="totalAmount">{{subscriptiondetail.price}}</span></b></td>
+                    <td><b>Rs.<span class="totalAmount">{{subscriptiondetail.price}}</span></b></td>
                 </tr>
                 <tr>
+                    <form method="post" action="{% url 'checkout_session' subscriptiondetail.id %}">
+                        {% csrf_token %}
                     <td colspan="2"></td>
                     <td><input type="submit" value="Proceed to Payment" class="btn btn-primary" /></td>
+                    </form>
                 </tr>
             </tfoot>
         </table>

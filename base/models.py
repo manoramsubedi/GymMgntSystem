@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 
+from django.contrib.auth.models import User
+
 # Create your models here
 
 
@@ -90,4 +92,32 @@ class SubscriptionFeature(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+class discount(models.Model):
+    subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE, null=True)
+    total_months = models.IntegerField()
+    total_discount = models.IntegerField()
+
+    def __str__(self):
+        return str(self.total_months)
+
+
+class Subscriber(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    mobile = models.CharField(max_length=15)
+    address = models.TextField()
+    image = models.ImageField(upload_to='subs/')
+
+    def __str__(self):
+        return str(self.user)
+    
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
+    
+
+class SubscribedUsers(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    plan = models.ForeignKey(Subscription, on_delete=models.CASCADE, null=True)
+    price = models.CharField(max_length=50)
+
 
