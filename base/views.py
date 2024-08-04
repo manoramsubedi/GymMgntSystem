@@ -7,8 +7,7 @@ from django.contrib.auth import authenticate
 
 import stripe
 
-
-
+from dotenv import load_dotenv
 
 # Create your views here.
 
@@ -72,8 +71,12 @@ def checkout(request, sub_id):
     context = {'subscriptiondetail': SubscriptionDetail, 'sub_feature': sub_feature, 'discounts':discounts}
     return render(request, 'base/checkout.html', context)
 
+import os
+def configure():
+    load_dotenv()
 
-stripe.api_key = 'sk_test_51Pk1arGyHjcugVxzLz0xVbHBNHyM9yNcw144jJ8uUGOw4oqoMj5X0uXQfQbQJRuszF5UniW9QEVnHgP1l8l6jvJR00xbIfDtuP'
+configure()
+stripe.api_key = os.getenv('stripe_key')
 def checkout_session(request, sub_id ):
     plan = Subscription.objects.get(pk=sub_id)
     session = stripe.checkout.Session.create(
