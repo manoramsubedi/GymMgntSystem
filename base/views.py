@@ -2,12 +2,12 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import EnquiryForm
 
-from django.db.models import Count
-from django.contrib.auth import authenticate
+#from django.db.models import Count
+#from django.contrib.auth import authenticate
 
 import stripe
-
 from dotenv import load_dotenv
+
 
 # Create your views here.
 
@@ -92,12 +92,24 @@ def checkout_session(request, sub_id ):
             'quantity':1,
         }],
         mode='payment',
-        success_url = 'http://127.0.0.1:8000/payment_success',
+        success_url = 'http://127.0.0.1:8000/payment_success?session_id={CHECKOUT_SESSION_ID}',
         cancel_url='http://127.0.0.1:8000/payment_cancel',
+        client_reference_id = sub_id
     )
     return redirect(session.url, code=303)
 
 def payment_success(request):
+    session = stripe.checkout.Session.retrieve(request.GET['session_id'])
+    plan_id = session.client_reference_id
+    plan = Subscription.objects.get(pk=plan_id)
+    user = request.user 
+    SubscribedUsers.objects.create(
+        plan = plan,
+        user = user,
+        price = plan.price
+    )
+
+
     return render(request, 'base/success.html')
 
 def payment_cancel(request):
