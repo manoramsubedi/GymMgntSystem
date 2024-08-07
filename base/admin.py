@@ -46,3 +46,9 @@ admin.site.register(models.Subscriber, SubscriberAdmin)
 class SubscribedUsersAdmin(admin.ModelAdmin):
     list_display=('user','plan', 'price')
 admin.site.register(models.SubscribedUsers, SubscribedUsersAdmin)
+
+
+class TrainerAdmin(admin.ModelAdmin):
+    list_editable = ('is_active',)
+    list_display=('full_name', 'is_active', 'image_tag')
+admin.site.register(models.Trainer, TrainerAdmin)

@@ -3,9 +3,6 @@ from django.utils.safestring import mark_safe
 
 from django.contrib.auth.models import User
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 # Create your models here
 
 
@@ -119,7 +116,10 @@ class Subscriber(models.Model):
             return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
         else:
             return 'no-image'
-    
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 @receiver(post_save, sender=User)
 def create_subscriber(sender, instance, created, **kwargs):
     if created:
@@ -131,4 +131,17 @@ class SubscribedUsers(models.Model):
     plan = models.ForeignKey(Subscription, on_delete=models.CASCADE, null=True)
     price = models.CharField(max_length=50)
 
+class Trainer(models.Model):
+    full_name =models.CharField(max_length=100)
+    mobile_number = models.CharField(max_length=15)
+    address = models.TextField()
+    is_active = models.BooleanField(default=False)
+    detail = models.TextField()
+    image = models.ImageField(upload_to='trainers/')
 
+    def __str__(self):
+        return str(self.full_name)
+    
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
+    
