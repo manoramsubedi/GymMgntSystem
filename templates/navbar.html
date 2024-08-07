@@ -30,6 +30,7 @@
                 <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
                 <li><hr class="dropdown-divider"></li>
               {% else %}
+              <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>

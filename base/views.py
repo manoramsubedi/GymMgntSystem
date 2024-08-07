@@ -98,6 +98,10 @@ def checkout_session(request, sub_id ):
     )
     return redirect(session.url, code=303)
 
+
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
+
 def payment_success(request):
     session = stripe.checkout.Session.retrieve(request.GET['session_id'])
     plan_id = session.client_reference_id
@@ -108,7 +112,12 @@ def payment_success(request):
         user = user,
         price = plan.price
     )
-
+    subject = 'Order Email'
+    html_content = get_template('base/ordermail.html').render({'title':plan.title})
+    from_email = 'manoramsubedi7@gmail.com'
+    msg = EmailMessage(subject, html_content, from_email, ['nunam933@gmail.com'])
+    msg.content_subtype = "html"  # Main content is now text/html
+    msg.send()
 
     return render(request, 'base/success.html')
 

@@ -3,6 +3,9 @@ from django.utils.safestring import mark_safe
 
 from django.contrib.auth.models import User
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Create your models here
 
 
@@ -112,8 +115,16 @@ class Subscriber(models.Model):
         return str(self.user)
     
     def image_tag(self):
-        return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
+        if self.image:
+            return mark_safe('<img src="%s" width="100"/>' % (self.image.url))
+        else:
+            return 'no-image'
     
+@receiver(post_save, sender=User)
+def create_subscriber(sender, instance, created, **kwargs):
+    if created:
+        Subscriber.objects.create(user=instance)
+
 
 class SubscribedUsers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
